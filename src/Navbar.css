@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+.Navbar {
+    background-color: #5F634F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    padding-right: 10vw;
+    flex-wrap: wrap;
+}
+
+.nav-links {
+    background-color: #5F634F;
+    list-style: none;
+    display: flex;
+    gap: 5vw;
+}
+
+.nav-links li {
+    background-color: #5F634F;
+    margin: 0;
+}
+
+.nav-links button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 24px;
+    position: relative;
+}
+  
+  .nav-links button.active {
+    border-bottom: 5px solid white;
+    border-radius: 5px;
+  }
+
+.nav-links button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+}
+
+.to_do_name {
+    background-color: transparent;
+    color: white;
+    font-size: 3em;
+    width: 25vw;
+    padding-left: 0.5em;
+    font-weight: 900;
+}

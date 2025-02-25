@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/cli": "^4.0.9",
+    "@tailwindcss/vite": "^4.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -23,6 +25,12 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^15.15.0",
+    "tailwindcss": "^4.0.9",
     "vite": "^6.2.0"
-  }
+  },
+  "description": "To Do List with Simple UI and Multi-List option along with Sub-List under each",
+  "main": "eslint.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
