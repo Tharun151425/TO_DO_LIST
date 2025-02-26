@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yantramanav:wght@100;300;400;500;700;900&display=swap');
+* {
+    --primary-color : #5F634F;
+    --primary-dark-color : #9798969a;
+    --secondary-color : #E2FADB;}
+.todo-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 20px;
+}
+
+.heading {
+    font-size: 48px;
+    color: var(--primary-color);
+    font-family: "Montserrat", serif;
+    font-weight: 600;
+}
+
+.inputbox{
+    margin:2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap:20px;
+    border: 2px solid var(--primary-color);
+    padding: 3em;
+    border-radius: 30px;
+}
+
+.heading-input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    border: 1px solid var(--primary-color);
+    border-radius: 5px;
+    outline: none;
+    text-align: center;
+}
+
+.Add-list{
+    background-color: var(--primary-color);
+    padding: 10px;
+    color:var(--secondary-color);
+    font-family: "Noto Sans", serif;
+    font-optical-sizing: auto;
+    font-weight: 500;
+    font-style: normal;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.Add-list:hover{
+    background-color: #4b4e3f;
+    transform: scale(1.05) translateY(2px);
+    transition: transform 0.3s ease;
+}

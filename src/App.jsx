@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Navbar from "./Navbar.jsx";
-import TodoList from "./TodoList.jsx";
-import HighPriorities from "./HighPriorities.jsx";
-import Kanban from "./Kanban.jsx";
+import Navbar from "./Components/Navbar.jsx";
+import TodoList from "./Components/TodoList.jsx";
+import HighPriorities from "./Components/HighPriorities.jsx";
+import Kanban from "./Components/Kanban.jsx";
 
 const App = () => {
   const [activeTab, setActiveTab] = useState("todo");
