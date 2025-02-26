@@ -45,15 +45,16 @@
     background-color: transparent;
     color: white;
     font-size: 2.5em;
-    padding-left: 0.5em;
     font-weight: 900;
-    text-align: center;
-    flex-grow: 1;
+    text-align: left; 
+    flex-grow: 0; 
+    margin-left: 1em; 
 }
 
 @media (max-width: 768px) {
     .Navbar {
-        flex-direction: column;
+        flex-direction: row; 
+        justify-content: space-between; 
         align-items: center;
         padding: 10px;
     }
@@ -73,12 +74,14 @@
     .to_do_name {
         font-size: 2em;
         width: auto;
+        margin-left: 0.5em;
     }
 }
 
 @media (max-width: 480px) {
     .to_do_name {
         font-size: 1.8em;
+        margin-left: 0.5em;
     }
 
     .nav-links button {
