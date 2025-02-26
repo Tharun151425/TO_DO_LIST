@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wdth,wght@0,62.5..100,100..900;1,62.5..100,100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yantramanav:wght@100;300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Sans:ital,wght@0,345;1,345&family=Rubik:ital,wght@0,300..900;1,300..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&family=Yantramanav:wght@100;300;400;500;700;900&display=swap');
+
 * {
-    --primary-color : #5F634F;
-    --primary-dark-color : #9798969a;
-    --secondary-color : #E2FADB;}
-.todo-container{
+    --primary-color: #5F634F;
+    --primary-dark-color: #9798969a;
+    --secondary-color: #E2FADB;
+}
+
+.todo-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -17,23 +20,26 @@
     color: var(--primary-color);
     font-family: "Montserrat", serif;
     font-weight: 600;
+    text-align: center;
 }
 
-.inputbox{
-    margin:2em;
+.inputbox {
+    margin: 2em;
+    width: 40em;
+    max-width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    gap:20px;
+    gap: 20px;
     border: 2px solid var(--primary-color);
     padding: 3em;
     border-radius: 30px;
 }
 
 .heading-input {
-    width: calc(100% - 22px);
+    width: 100%;
     padding: 10px;
     font-size: 16px;
     margin-bottom: 10px;
@@ -43,20 +49,65 @@
     text-align: center;
 }
 
-.Add-list{
+.Add-list {
     background-color: var(--primary-color);
     padding: 10px;
-    color:var(--secondary-color);
+    color: var(--secondary-color);
     font-family: "Noto Sans", serif;
-    font-optical-sizing: auto;
     font-weight: 500;
-    font-style: normal;
     border: 1px solid white;
     border-radius: 10px;
+    transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
-.Add-list:hover{
+.Add-list:hover {
     background-color: #4b4e3f;
     transform: scale(1.05) translateY(2px);
-    transition: transform 0.3s ease;
+}
+
+.rubik-text {
+    font-family: "Rubik", serif;
+    font-weight: 400;
+}
+
+.rubik-light {
+    font-family: "Rubik", serif;
+    font-weight: 300;
+}
+
+.montserrat-subhead {
+    font-family: "Montserrat", serif;
+    font-weight: 550;
+}
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: 36px;
+    }
+
+    .inputbox {
+        width: 80%;
+        padding: 2em;
+    }
+
+    .Add-list {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: 28px;
+    }
+
+    .inputbox {
+        width: 90%;
+        padding: 1.5em;
+    }
+
+    .Add-list {
+        font-size: 14px;
+        padding: 8px;
+    }
 }

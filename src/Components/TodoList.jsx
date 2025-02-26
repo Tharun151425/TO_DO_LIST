@@ -16,8 +16,8 @@ const TodoList = () => {
     <div className="todo-container">
       <h1 className="heading">My To-Do-List</h1>
       <div className="inputbox">
-        <input type="text" className="heading-input" placeholder="Enter Heading" value={inputHeading} onChange={(e)=> setInputHeading(e.target.value)}/>
-        <button className="Add-list" onClick={HandleAddHeading}>ADD HEADING</button>
+        <input type="text" className="heading-input rubik-text" placeholder="Enter Heading" value={inputHeading} onChange={(e)=> setInputHeading(e.target.value)}/>
+        <button className="Add-list rubik-text" onClick={HandleAddHeading}>ADD HEADING</button>
       </div>
       <div className="flex flex-wrap gap-2">
         {todoMain}

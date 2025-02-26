@@ -14,4 +14,3 @@ const Navbar = ({ activeTab, setActiveTab }) => {
   };
   
   export default Navbar;
-  

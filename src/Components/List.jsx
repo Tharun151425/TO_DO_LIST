@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-
-
+import './ToDoList.css'
 
 const List = (props) => {
     const [listName, setListName] = useState("");
@@ -22,27 +21,45 @@ const List = (props) => {
         setTodos(newTodos);
     };
 
+const HandleDelete = (id) => {
+    setTodos(todos.filter((t) => t.uID !== id));
+};
+
+const HandleEdit = (id) => {
+    const itm = todos.find((t) => t.uID === id);
+    if (itm) {
+        setListName(itm.lname);
+        setTodos(todos.filter((t) => t.uID !== id));
+    }
+};
+
 
     return (
-        <div className="p-5 border-2 w-[20em] rounded-2xl bg-[#f7fff4] border-[#979896] m-10 relative">
-            <h2 className="pb-20 text-[24px] text-blue-400 text-center">{props.lName}</h2>
-            <div className="m-20 flex-col justify-center items-center">
-                {todos.map((t, index) => {
-                    return (
-                        <div className="cursor-pointer p-2 border-2 border-red-900 grid grid-cols-4 w-[19em]" key={t.uID}>
-                            <input type="checkbox" value={t.isCompleted} name={t.uID} id={t.uID} onChange={HandleCheckBox} />
-                            <label htmlFor={t.uID} className={t.isCompleted ? "line-through" : ""}>{t.lname}</label>
-                                <img src="src\assets\edit-pen-svgrepo-com.svg" alt="Edit Icon" style={{ cursor: "pointer", width: "24px", height: "24px" }} />
-                                <img src="src\assets\delete-2-svgrepo-com.svg" alt="Delete Icon" style={{ cursor: "pointer", width: "24px", height: "24px" }} />
-                        </div>
-                    );
-                })}
+        <>
+            <div className="border-2 w-[22em] rounded-xl bg-[#f7fff4] border-[#979896] m-6 p-4 shadow-md">
+                <h2 className="py-2 text-[1.8em] text-[#5F634F]-400 text-center montserrat-subhead">{props.lName}</h2>
+                <div className="flex flex-col w-full gap-3">
+                    {todos.map((t, index) => {
+                        return (
+                            <div className="cursor-pointer px-4 py-2 flex items-center w-full rounded-md bg-white shadow-sm" key={t.uID}>
+                                <input type="checkbox" checked={t.isCompleted} id={t.uID} onChange={HandleCheckBox} className="w-[1.5em] h-[1.5em] m-[0.5em]" />
+                                <div className="flex-1 overflow-hidden">
+                                    <label htmlFor={t.uID} className={`text-wrap text-[1.1em] rubik-text ${t.isCompleted ? "line-through text-gray-500 w-[]" : "text-black"}`}>{t.lname}</label>
+                                </div>
+                                <div className="flex space-x-2 ml-2">
+                                    <img src="src/assets/edit-pen-svgrepo-com.svg" alt="Edit" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale opacity-50 pointer-events-none" : ""}`} onClick={() => HandleEdit(t.uID)}/>
+                                    <img src="src/assets/delete-2-svgrepo-com.svg" alt="Delete" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale" : ""}`} onClick={() => HandleDelete(t.uID)}/>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </div>
+                <div className="mt-4 flex items-center gap-2">
+                    <input type="text" placeholder="Enter List Items" value={listName} onChange={(e) => setListName(e.target.value)} className="heading-input !mb-0" />
+                    <button onClick={HandleAddList} className="Add-list">Add</button>
+                </div>
             </div>
-            <div className="absolute bottom-2 p-2 flex-col">
-                <input type="text" name="element-name" placeholder="Enter List Items" value={listName} onChange={(e) => setListName(e.target.value)} />
-                <button onClick={HandleAddList}>Add</button>
-            </div>
-        </div>
+        </>
     )
 }
 
