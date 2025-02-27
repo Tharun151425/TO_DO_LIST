@@ -47,8 +47,8 @@ const HandleEdit = (id) => {
                                     <label htmlFor={t.uID} className={`text-wrap text-[1.1em] rubik-text ${t.isCompleted ? "line-through text-gray-500 w-[]" : "text-black"}`}>{t.lname}</label>
                                 </div>
                                 <div className="flex space-x-2 ml-2">
-                                    <img src="src/assets/edit-pen-svgrepo-com.svg" alt="Edit" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale opacity-50 pointer-events-none" : ""}`} onClick={() => HandleEdit(t.uID)}/>
-                                    <img src="src/assets/delete-2-svgrepo-com.svg" alt="Delete" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale" : ""}`} onClick={() => HandleDelete(t.uID)}/>
+                                    <img src="/edit-pen-svgrepo-com.svg" alt="Edit" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale opacity-50 pointer-events-none" : ""}`} onClick={() => HandleEdit(t.uID)}/>
+                                    <img src="/delete-2-svgrepo-com.svg" alt="Delete" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale" : ""}`} onClick={() => HandleDelete(t.uID)}/>
                                 </div>
                             </div>
                         );
