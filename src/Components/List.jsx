@@ -1,16 +1,55 @@
-import { useState } from 'react';
+// List.jsx
+import React, { useState, useContext, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import './ToDoList.css'
+import { ThemeContext } from '../ThemeContext';
+import './TodoList.css';
 
 const List = (props) => {
+    const { theme } = useContext(ThemeContext);
     const [listName, setListName] = useState("");
     const [todos, setTodos] = useState([]);
+    const [isEditing, setIsEditing] = useState(false);
+    const [editingId, setEditingId] = useState(null);
+    
+    // Load todos from localStorage
+    useEffect(() => {
+        const storedTodos = localStorage.getItem(`todos-${props.lName}`);
+        if (storedTodos) {
+            setTodos(JSON.parse(storedTodos));
+        }
+    }, [props.lName]);
+    
+    // Save todos to localStorage whenever they change
+    useEffect(() => {
+        localStorage.setItem(`todos-${props.lName}`, JSON.stringify(todos));
+    }, [todos, props.lName]);
+
     const HandleAddList = () => {
         if (listName.trim() !== '') {
-            setTodos([...todos, { lname: listName, uID: uuidv4(), isCompleted: false }]);
+            if (isEditing && editingId) {
+                // Update existing todo
+                const newTodos = todos.map((t) => {
+                    if (t.uID === editingId) {
+                        return { ...t, lname: listName };
+                    }
+                    return t;
+                });
+                setTodos(newTodos);
+                setIsEditing(false);
+                setEditingId(null);
+            } else {
+                // Add new todo
+                setTodos([...todos, { 
+                    lname: listName, 
+                    uID: uuidv4(), 
+                    isCompleted: false,
+                    createdAt: new Date().toISOString()
+                }]);
+            }
             setListName('');
         }
     }
+
     const HandleCheckBox = (e) => {
         const newTodos = todos.map((t) => {
             if (t.uID === e.target.id) {
@@ -21,46 +60,96 @@ const List = (props) => {
         setTodos(newTodos);
     };
 
-const HandleDelete = (id) => {
-    setTodos(todos.filter((t) => t.uID !== id));
-};
-
-const HandleEdit = (id) => {
-    const itm = todos.find((t) => t.uID === id);
-    if (itm) {
-        setListName(itm.lname);
+    const HandleDelete = (id) => {
         setTodos(todos.filter((t) => t.uID !== id));
-    }
-};
+    };
 
+    const HandleEdit = (id) => {
+        const itm = todos.find((t) => t.uID === id);
+        if (itm) {
+            setListName(itm.lname);
+            setIsEditing(true);
+            setEditingId(id);
+        }
+    };
+
+    const HandleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            HandleAddList();
+        }
+    };
 
     return (
-        <>
-            <div className="border-2 w-[22em] rounded-xl bg-[#f7fff4] border-[#979896] m-6 p-4 shadow-md">
-                <h2 className="py-2 text-[1.8em] text-[#5F634F]-400 text-center montserrat-subhead">{props.lName}</h2>
-                <div className="flex flex-col w-full gap-3">
-                    {todos.map((t, index) => {
-                        return (
-                            <div className="cursor-pointer px-4 py-2 flex items-center w-full rounded-md bg-white shadow-sm" key={t.uID}>
-                                <input type="checkbox" checked={t.isCompleted} id={t.uID} onChange={HandleCheckBox} className="w-[1.5em] h-[1.5em] m-[0.5em]" />
-                                <div className="flex-1 overflow-hidden">
-                                    <label htmlFor={t.uID} className={`text-wrap text-[1.1em] rubik-text ${t.isCompleted ? "line-through text-gray-500 w-[]" : "text-black"}`}>{t.lname}</label>
-                                </div>
-                                <div className="flex space-x-2 ml-2">
-                                    <img src="/edit-pen-svgrepo-com.svg" alt="Edit" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale opacity-50 pointer-events-none" : ""}`} onClick={() => HandleEdit(t.uID)}/>
-                                    <img src="/delete-2-svgrepo-com.svg" alt="Delete" className={`transition-transform duration-200 ease-in-out hover:scale-120 w-6 h-6 cursor-pointer ${t.isCompleted ? "grayscale" : ""}`} onClick={() => HandleDelete(t.uID)}/>
-                                </div>
+        <div className={`list-card ${theme}`}>
+            <h2 className="list-title">{props.lName}</h2>
+            
+            <div className="todos-container">
+                {todos.length > 0 ? (
+                    todos.map((t) => (
+                        <div className="todo-item fade-in" key={t.uID}>
+                            <input 
+                                type="checkbox" 
+                                checked={t.isCompleted}
+                                id={t.uID}
+                                onChange={HandleCheckBox}
+                                className="todo-checkbox"
+                            />
+                            <span 
+                                className={`todo-label ${t.isCompleted ? 'todo-completed' : ''}`}
+                                onClick={() => document.getElementById(t.uID).click()}
+                            >
+                                {t.lname}
+                            </span>
+                            <div className="todo-actions">
+                                <button 
+                                    className={`todo-action-btn ${t.isCompleted ? 'disabled' : ''}`}
+                                    onClick={() => !t.isCompleted && HandleEdit(t.uID)}
+                                    disabled={t.isCompleted}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                        <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                    </svg>
+                                </button>
+                                <button 
+                                    className="todo-action-btn"
+                                    onClick={() => HandleDelete(t.uID)}
+                                >
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                        <path d="M3 6h18"></path>
+                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"></path>
+                                        <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                    </svg>
+                                </button>
                             </div>
-                        );
-                    })}
-                </div>
-                <div className="mt-4 flex items-center gap-2">
-                    <input type="text" placeholder="Enter List Items" value={listName} onChange={(e) => setListName(e.target.value)} className="heading-input !mb-0" />
-                    <button onClick={HandleAddList} className="Add-list">Add</button>
-                </div>
+                        </div>
+                    ))
+                ) : (
+                    <div className="empty-state">
+                        <div className="empty-state-icon">📝</div>
+                        <p className="empty-state-text">No tasks yet. Add one below!</p>
+                    </div>
+                )}
             </div>
-        </>
-    )
-}
+            
+            <div className="list-input-group">
+                <input 
+                    type="text" 
+                    placeholder="Enter task..."
+                    value={listName}
+                    onChange={(e) => setListName(e.target.value)}
+                    onKeyPress={HandleKeyPress}
+                    className="list-input"
+                />
+                <button 
+                    onClick={HandleAddList}
+                    className="list-add-btn"
+                >
+                    {isEditing ? 'Update' : 'Add'}
+                </button>
+            </div>
+        </div>
+    );
+};
 
 export default List;
