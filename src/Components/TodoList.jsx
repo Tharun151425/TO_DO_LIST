@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { ThemeContext } from '../ThemeContext';
-import List from './List';
+import { ThemeContext } from '../ThemeContext.jsx';
+import List from './List.jsx';
 import './TodoList.css';
 
 const TodoList = () => {
